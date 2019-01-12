@@ -12,7 +12,7 @@ type Bank struct {
 	Prefixes   []int  `json:"prefixes"`
 }
 
-func GetBank(creditCard string) *Bank {
+func FindBank(creditCard string) *Bank {
 	for _, prefixLength := range []int{5, 6} {
 		prefix, err := strconv.Atoi(creditCard[:prefixLength])
 		if err != nil {
