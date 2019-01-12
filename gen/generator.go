@@ -18,7 +18,7 @@ var (
 
 var prefixToBank = make(map[int]*Bank)
 var banks = []Bank{
-{{range $bank := .Banks}}    {
+{{range $bank := .Banks}}	{
 		Name:       "{{$bank.Name}}",
 		Country:    "{{$bank.Country}}",
 		LocalTitle: "{{$bank.LocalTitle}}",
@@ -27,13 +27,12 @@ var banks = []Bank{
 		Color:      "{{$bank.Color}}",
 		Prefixes:   []int{{"{"}}{{range $i, $prefix := $bank.Prefixes}}{{if $i}}, {{end}}{{$prefix}}{{end}}},
 	},
-{{end}}
-}
+{{end}}}
 
 func init() {
 	for i := range banks {
-		bank := &banks[i] 
-		for _, prefix := range bank.Prefixes { 
+		bank := &banks[i]
+		for _, prefix := range bank.Prefixes {
 			prefixToBank[prefix] = bank
 		}
 	}
@@ -55,7 +54,7 @@ func GenerateFile(outputPath string, banks []Bank) {
 		outputFile,
 		Params{
 			Package: getPackageName(outputPath),
-			Banks: banks,
+			Banks:   banks,
 		},
 	)
 	if err != nil {
