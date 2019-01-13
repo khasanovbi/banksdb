@@ -28,6 +28,11 @@ type Bank struct {
 	Prefixes   []int  `json:"prefixes"`
 }
 
+type CountryBanks struct {
+	Country string
+	Banks   []Bank
+}
+
 func unmarshalBankFromFile(fs billy.Filesystem, path string) (*Bank, error) {
 	jsonFile, err := fs.Open(path)
 	if err != nil {
@@ -45,10 +50,42 @@ func unmarshalBankFromFile(fs billy.Filesystem, path string) (*Bank, error) {
 		return nil, err
 	}
 	return &bank, nil
-
 }
 
-func readBanks(fs billy.Filesystem, path string, banks *[]Bank) {
+func readCountryDir(fs billy.Filesystem, path string) []Bank {
+	contents, err := fs.ReadDir(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	banks := make([]Bank, 0)
+	for _, content := range contents {
+		contentPath := filepath.Join(path, content.Name())
+		if content.IsDir() {
+			log.Fatalf("unexpected directory in country directory: path='%s'", contentPath)
+		}
+
+		if !strings.HasSuffix(content.Name(), ".json") {
+			log.Printf("skip not json file: path='%s'", contentPath)
+			continue
+		}
+
+		log.Printf("handle file: path='%s'", contentPath)
+		bank, err := unmarshalBankFromFile(fs, contentPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+		banks = append(banks, *bank)
+	}
+
+	sort.Slice(banks, func(i, j int) bool {
+		return banks[i].Name < banks[j].Name
+	})
+	return banks
+}
+
+func readBanks(fs billy.Filesystem, path string) []CountryBanks {
+	countryBanksSlice := make([]CountryBanks, 0)
 	contents, err := fs.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)
@@ -56,26 +93,23 @@ func readBanks(fs billy.Filesystem, path string, banks *[]Bank) {
 	for _, content := range contents {
 		contentPath := filepath.Join(path, content.Name())
 		if content.IsDir() {
-			log.Printf("enter dir: path='%s'", contentPath)
-			readBanks(fs, contentPath, banks)
-			log.Printf("exit dir: path='%s'", contentPath)
+			log.Printf("enter country dir: path='%s'", contentPath)
+			countryBanksSlice = append(
+				countryBanksSlice,
+				CountryBanks{
+					Country: content.Name(),
+					Banks:   readCountryDir(fs, contentPath),
+				},
+			)
+			log.Printf("exit country dir: path='%s'", contentPath)
 		} else {
-			if !strings.HasSuffix(content.Name(), ".json") {
-				log.Printf("skip not json file: path='%s'", contentPath)
-				continue
-			}
-
-			log.Printf("handle file: path='%s'", contentPath)
-			bank, err := unmarshalBankFromFile(fs, contentPath)
-			if err != nil {
-				log.Fatal(err)
-			}
-			*banks = append(*banks, *bank)
+			log.Printf("skip file in root dir: path='%s'", contentPath)
 		}
 	}
+	return countryBanksSlice
 }
 
-func ParseBanks() []Bank {
+func ParseBanks() []CountryBanks {
 	log.Printf("clone repo: repoUrl='%s'", repoUrl)
 	fs := memfs.New()
 	repository, err := git.Clone(memory.NewStorage(), fs, &git.CloneOptions{
@@ -90,13 +124,10 @@ func ParseBanks() []Bank {
 	}
 	commit, err := repository.CommitObject(ref.Hash())
 	log.Printf("repo cloned: lastCommitTime='%s'", commit.Committer.When.Format("02 Jan 2006 15:04:05"))
-	banks := make([]Bank, 0)
-	readBanks(fs, dbPath, &banks)
-	sort.Slice(banks, func(i, j int) bool {
-		if banks[i].Country == banks[j].Country {
-			return banks[i].Name < banks[j].Name
-		}
-		return banks[i].Country < banks[j].Country
+
+	countryBanksSlice := readBanks(fs, dbPath)
+	sort.Slice(countryBanksSlice, func(i, j int) bool {
+		return countryBanksSlice[i].Country < countryBanksSlice[j].Country
 	})
-	return banks
+	return countryBanksSlice
 }

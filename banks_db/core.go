@@ -1,6 +1,8 @@
 package banks_db
 
-import "strconv"
+var banksDB = &banksDBImpl{
+	prefixToBank: make(map[int]*Bank),
+}
 
 type Bank struct {
 	Name       string `json:"name"`
@@ -13,14 +15,11 @@ type Bank struct {
 }
 
 func FindBank(creditCard string) *Bank {
-	for _, prefixLength := range []int{5, 6} {
-		prefix, err := strconv.Atoi(creditCard[:prefixLength])
-		if err != nil {
-			return nil
-		}
-		if bank, ok := prefixToBank[prefix]; ok {
-			return bank
-		}
+	return banksDB.FindBank(creditCard)
+}
+
+func init() {
+	for _, banks := range banksByCountry {
+		banksDB.addBanksToDB(banks)
 	}
-	return nil
 }
