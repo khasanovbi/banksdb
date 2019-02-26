@@ -1505,6 +1505,15 @@ var banksByCountry = map[Country][]Bank{
 			Prefixes:   []int{400684, 408579, 414070, 420322, 420323, 420324, 455571, 480296, 490805, 490806, 490807, 510151, 532443, 540024, 540025, 542029, 542605, 542965, 542967, 547765, 548819, 554297, 554570},
 		},
 		{
+			Name:       "ininal",
+			Country:    "tr",
+			LocalTitle: "ininal",
+			EngTitle:   "ininal",
+			URL:        "https://www.ininal.com",
+			Color:      "#51504E",
+			Prefixes:   []int{515755},
+		},
+		{
 			Name:       "isbank",
 			Country:    "tr",
 			LocalTitle: "Türkiye İş Bankası",
@@ -1574,7 +1583,7 @@ var banksByCountry = map[Country][]Bank{
 			EngTitle:   "Ziraat Bankası",
 			URL:        "http://ziraatbank.com.tr",
 			Color:      "#4285f4",
-			Prefixes:   []int{413226, 444676, 444677, 444678, 453955, 453956, 454671, 454672, 454673, 454674, 454894, 540130, 540134, 541001, 541033, 542374, 547287},
+			Prefixes:   []int{413226, 444676, 444677, 444678, 453955, 453956, 454671, 454672, 454673, 454674, 454894, 476619, 540130, 540134, 541001, 541033, 542374, 547287},
 		},
 	},
 	TW: {
