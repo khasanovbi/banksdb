@@ -1,9 +1,10 @@
-package banks_db
+package banksdb
 
 var banksDB = &banksDBImpl{
 	prefixToBank: make(map[int]*Bank),
 }
 
+// Bank represent bank info.
 type Bank struct {
 	Name       string `json:"name"`
 	Country    string `json:"country"`
@@ -14,6 +15,7 @@ type Bank struct {
 	Prefixes   []int  `json:"prefixes"`
 }
 
+// FindBank search bank info in all countries.
 func FindBank(creditCard string) *Bank {
 	return banksDB.FindBank(creditCard)
 }

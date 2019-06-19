@@ -2,22 +2,24 @@ package gen
 
 import (
 	"encoding/json"
-	"gopkg.in/src-d/go-billy.v4"
-	"gopkg.in/src-d/go-billy.v4/memfs"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/storage/memory"
 	"io/ioutil"
 	"log"
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"gopkg.in/src-d/go-billy.v4"
+	"gopkg.in/src-d/go-billy.v4/memfs"
+	"gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/storage/memory"
 )
 
 const (
-	repoUrl = "https://github.com/ramoona/banks-db"
+	repoURL = "https://github.com/ramoona/banks-db"
 	dbPath  = "banks"
 )
 
+// Bank represent bank info.
 type Bank struct {
 	Name       string `json:"name"`
 	Country    string `json:"country"`
@@ -28,6 +30,7 @@ type Bank struct {
 	Prefixes   []int  `json:"prefixes"`
 }
 
+// CountryBanks represent country with related banks.
 type CountryBanks struct {
 	Country string
 	Banks   []Bank
@@ -38,8 +41,7 @@ func unmarshalBankFromFile(fs billy.Filesystem, path string) (*Bank, error) {
 	if err != nil {
 		return nil, err
 	}
-	//noinspection GoUnhandledErrorResult
-	defer jsonFile.Close()
+	defer jsonFile.Close() // nolint: errcheck
 	byteValue, err := ioutil.ReadAll(jsonFile)
 	if err != nil {
 		return nil, err
@@ -109,11 +111,12 @@ func readBanks(fs billy.Filesystem, path string) []CountryBanks {
 	return countryBanksSlice
 }
 
+// ParseBanks fetch latest commit from repository and parse banks info for each country.
 func ParseBanks() []CountryBanks {
-	log.Printf("clone repo: repoUrl='%s'", repoUrl)
+	log.Printf("clone repo: repoURL='%s'", repoURL)
 	fs := memfs.New()
 	repository, err := git.Clone(memory.NewStorage(), fs, &git.CloneOptions{
-		URL: repoUrl,
+		URL: repoURL,
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -123,6 +126,9 @@ func ParseBanks() []CountryBanks {
 		log.Fatal(err)
 	}
 	commit, err := repository.CommitObject(ref.Hash())
+	if err != nil {
+		log.Fatal(err)
+	}
 	log.Printf("repo cloned: lastCommitTime='%s'", commit.Committer.When.Format("02 Jan 2006 15:04:05"))
 
 	countryBanksSlice := readBanks(fs, dbPath)

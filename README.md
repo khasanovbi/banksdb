@@ -1,5 +1,7 @@
 # Banks DB
 
+[![Release](https://img.shields.io/github/release/khasanovbi/banks_db.svg?style=flat-square)](https://github.com/khasanovbi/banks_db/releases/latest)
+
 Community driven database to get bank info (name, brand, color, etc.) by bankcard prefix (BIN)
 
 > This is golang port of [ramoona's banks-db](https://github.com/ramoona/banks-db).
@@ -7,7 +9,7 @@ Community driven database to get bank info (name, brand, color, etc.) by bankcar
 ### Install
 
 ```
-go get -u github.com/KhasanovBI/banks_db/banks_db
+go get -u github.com/KhasanovBI/banks_db/banksdb
 ```
 
 ### Usage
@@ -19,13 +21,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/khasanovbi/banks_db/banks_db"
+
+	"github.com/khasanovbi/banks_db/banksdb"
 )
 
 func main() {
 	for _, creditCard := range []string{"5275940000000000", "4111111111111111"} {
-		bank := banks_db.FindBank(creditCard)
-		paymentSystem := banks_db.FindPaymentSystem(creditCard)
+		bank := banksdb.FindBank(creditCard)
+		paymentSystem := banksdb.FindPaymentSystem(creditCard)
 		fmt.Printf("CreditCard: %s\n", creditCard)
 		fmt.Printf("Bank info: %#v\n", bank)
 		if paymentSystem != nil {
@@ -40,10 +43,10 @@ func main() {
 Output:
 ```
 CreditCard: 5275940000000000
-Bank info: &banks_db.Bank{Name:"citibank", Country:"ru", LocalTitle:"Ситибанк", EngTitle:"Citibank", URL:"https://www.citibank.ru/", Color:"#0088cf", Prefixes:[]int{419349, 427760, 427761, 520306, 527594}}
+Bank info: &banksdb.Bank{Name:"citibank", Country:"ru", LocalTitle:"Ситибанк", EngTitle:"Citibank", URL:"https://www.citibank.ru/", Color:"#0088cf", Prefixes:[]int{419349, 427760, 427761, 520306, 527594}}
 Payment system: mastercard
 
 CreditCard: 4111111111111111
-Bank info: (*banks_db.Bank)(nil)
+Bank info: (*banksdb.Bank)(nil)
 Payment system: visa
 ```

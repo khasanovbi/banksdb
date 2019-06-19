@@ -1,7 +1,9 @@
-package banks_db
+package banksdb
 
+// Country represent country code.
 type Country string
 
+// Following constants represent country codes of known banks in db.
 const (
 	AR Country = "ar"
 	AU Country = "au"

@@ -1,7 +1,8 @@
-package banks_db
+package banksdb
 
 import "strconv"
 
+// BanksDB is an interface representing the ability to find bank info by creditCard number.
 type BanksDB interface {
 	FindBank(creditCard string) *Bank
 }
@@ -33,6 +34,7 @@ func (b *banksDBImpl) addBanksToDB(banks []Bank) {
 	}
 }
 
+// NewBanksDB creates BanksDB for given countries.
 func NewBanksDB(countries ...Country) BanksDB {
 	banksDB := &banksDBImpl{
 		prefixToBank: make(map[int]*Bank),

@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/khasanovbi/banks_db/gen"
 	"log"
 	"sort"
+
+	"github.com/khasanovbi/banks_db/internal/gen"
 )
 
 const (
-	BaseDir       = "banks_db"
-	CountriesPath = BaseDir + "/countries.go"
-	BanksPath     = BaseDir + "/banks.go"
+	baseDir       = "banksdb"
+	countriesPath = baseDir + "/countries.go"
+	banksPath     = baseDir + "/banks.go"
 )
 
 func calculateBanksCount(countryBanksSlice []gen.CountryBanks) int {
@@ -36,6 +37,6 @@ func main() {
 		len(countryBanksSlice),
 		calculateBanksCount(countryBanksSlice),
 	)
-	gen.GenerateCountriesFile(CountriesPath, getCountries(countryBanksSlice))
-	gen.GenerateBanksFile(BanksPath, countryBanksSlice)
+	gen.GenerateCountriesFile(countriesPath, getCountries(countryBanksSlice))
+	gen.GenerateBanksFile(banksPath, countryBanksSlice)
 }

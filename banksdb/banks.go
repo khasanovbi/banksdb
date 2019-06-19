@@ -1,4 +1,4 @@
-package banks_db
+package banksdb
 
 var banksByCountry = map[Country][]Bank{
 	AR: {

@@ -8,12 +8,12 @@ import (
 	"text/template"
 )
 
-type CountriesFileParams struct {
+type countriesFileParams struct {
 	Package   string
 	Countries []string
 }
 
-type BanksFileParams struct {
+type banksFileParams struct {
 	Package           string
 	CountryBanksSlice []CountryBanks
 }
@@ -26,8 +26,10 @@ var (
 	countriesTpl = template.Must(template.New("countriesTpl").Funcs(funcMap).Parse(
 		`package {{.Package}}
 
+// Country represent country code.
 type Country string
 
+// Following constants represent country codes of known banks in db.
 const (
 {{range $country := .Countries}}	{{$country | ToUpper}} Country = "{{$country}}"
 {{end}})
@@ -56,6 +58,7 @@ func getPackageName(outputPath string) string {
 	return filepath.Dir(outputPath)
 }
 
+// GenerateCountriesFile generate go file with countries.
 func GenerateCountriesFile(outputPath string, countries []string) {
 	log.Printf("generate countries file: path='%s'", outputPath)
 	outputFile, err := os.Create(outputPath)
@@ -64,7 +67,7 @@ func GenerateCountriesFile(outputPath string, countries []string) {
 	}
 	err = countriesTpl.Execute(
 		outputFile,
-		CountriesFileParams{
+		countriesFileParams{
 			Package:   getPackageName(outputPath),
 			Countries: countries,
 		},
@@ -75,6 +78,7 @@ func GenerateCountriesFile(outputPath string, countries []string) {
 	log.Printf("file generated")
 }
 
+// GenerateBanksFile generate go file with country to bank mapping.
 func GenerateBanksFile(outputPath string, countryBanksSlice []CountryBanks) {
 	log.Printf("generate banks file: path='%s'", outputPath)
 	outputFile, err := os.Create(outputPath)
@@ -83,7 +87,7 @@ func GenerateBanksFile(outputPath string, countryBanksSlice []CountryBanks) {
 	}
 	err = banksTpl.Execute(
 		outputFile,
-		BanksFileParams{
+		banksFileParams{
 			Package:           getPackageName(outputPath),
 			CountryBanksSlice: countryBanksSlice,
 		},

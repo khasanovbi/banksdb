@@ -1,4 +1,4 @@
-package banks_db
+package banksdb
 
 import "regexp"
 
@@ -30,8 +30,10 @@ func init() {
 	}
 }
 
+// FindPaymentSystem returns
 func FindPaymentSystem(creditCard string) *string {
 	for paymentSystem, re := range paymentSystems {
+		paymentSystem := paymentSystem // NOTE: use to ignore range scope
 		if re.MatchString(creditCard) {
 			return &paymentSystem
 		}
