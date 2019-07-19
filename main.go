@@ -4,7 +4,7 @@ import (
 	"log"
 	"sort"
 
-	"github.com/khasanovbi/banks_db/internal/gen"
+	"github.com/khasanovbi/banksdb/internal/gen"
 )
 
 const (

@@ -1,1 +1,1 @@
-module github.com/khasanovbi/banks_db/banks_db
+module github.com/khasanovbi/banksdb/banksdb

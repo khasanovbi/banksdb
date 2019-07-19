@@ -1,8 +1,8 @@
 # Banks DB
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/khasanovbi/banks_db?style=flat-square)](https://goreportcard.com/report/github.com/khasanovbi/banks_db)
-[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/khasanovbi/banks_db)
-[![Release](https://img.shields.io/github/release/khasanovbi/banks_db.svg?style=flat-square)](https://github.com/khasanovbi/banks_db/releases/latest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/khasanovbi/banksdb?style=flat-square)](https://goreportcard.com/report/github.com/khasanovbi/banksdb)
+[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/khasanovbi/banksdb)
+[![Release](https://img.shields.io/github/release/khasanovbi/banksdb.svg?style=flat-square)](https://github.com/khasanovbi/banksdb/releases/latest)
 
 Community driven database to get bank info (name, brand, color, etc.) by bankcard prefix (BIN)
 
@@ -11,12 +11,12 @@ Community driven database to get bank info (name, brand, color, etc.) by bankcar
 ### Install
 
 ```
-go get -u github.com/KhasanovBI/banks_db/banksdb
+go get -u github.com/KhasanovBI/banksdb/banksdb
 ```
 
 ### Usage
 
-Below is an example which shows some common use cases for banks_db:
+Below is an example which shows some common use cases for banksdb:
 
 ```go
 package main
@@ -24,7 +24,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/khasanovbi/banks_db/banksdb"
+	"github.com/khasanovbi/banksdb/banksdb"
 )
 
 func main() {
