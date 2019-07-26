@@ -24,7 +24,12 @@ var funcMap = template.FuncMap{
 
 var (
 	countriesTpl = template.Must(template.New("countriesTpl").Funcs(funcMap).Parse(
-		`package {{.Package}}
+		`/*
+* CODE GENERATED AUTOMATICALLY WITH github.com/khasanovbi/banksdb/internal/gen
+* THIS FILE MUST NOT BE EDITED BY HAND
+*/
+
+package {{.Package}}
 
 // Country represent country code.
 type Country string
@@ -36,7 +41,12 @@ const (
 `))
 
 	banksTpl = template.Must(template.New("banksTpl").Funcs(funcMap).Parse(
-		`package {{.Package}}
+		`/*
+* CODE GENERATED AUTOMATICALLY WITH github.com/khasanovbi/banksdb/internal/gen
+* THIS FILE MUST NOT BE EDITED BY HAND
+*/
+
+package {{.Package}}
 
 var banksByCountry = map[Country][]Bank{
 {{range $countryBanks := .CountryBanksSlice}}	{{$countryBanks.Country | ToUpper}}: {

@@ -1,3 +1,8 @@
+/*
+* CODE GENERATED AUTOMATICALLY WITH github.com/khasanovbi/banksdb/internal/gen
+* THIS FILE MUST NOT BE EDITED BY HAND
+ */
+
 package banksdb
 
 // Country represent country code.
