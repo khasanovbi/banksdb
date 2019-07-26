@@ -1,4 +1,4 @@
-package gen
+package main
 
 import (
 	"log"
@@ -55,7 +55,7 @@ var banksByCountry = map[Country][]Bank{
 )
 
 func getPackageName(outputPath string) string {
-	return filepath.Dir(outputPath)
+	return filepath.Base(filepath.Dir(outputPath))
 }
 
 // GenerateCountriesFile generate go file with countries.
