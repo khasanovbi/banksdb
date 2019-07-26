@@ -30,7 +30,7 @@ func init() {
 	}
 }
 
-// FindPaymentSystem returns
+// FindPaymentSystem returns payment system of given credit card.
 func FindPaymentSystem(creditCard string) *string {
 	for paymentSystem, re := range paymentSystems {
 		paymentSystem := paymentSystem // NOTE: use to ignore range scope
