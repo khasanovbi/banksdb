@@ -12,7 +12,7 @@ Community driven database to get bank info (name, brand, color, etc.) by bankcar
 ### Install
 
 ```
-go get -u github.com/khasanovbi/banksdb/v2
+go get -u github.com/khasanovbi/banksdb
 ```
 
 ### Usage
