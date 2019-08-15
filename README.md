@@ -12,7 +12,7 @@ Community driven database to get bank info (name, brand, color, etc.) by bankcar
 ### Install
 
 ```
-go get -u github.com/khasanovbi/banksdb
+go get -u github.com/khasanovbi/banksdb/v2
 ```
 
 ### Usage
@@ -25,8 +25,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/khasanovbi/banksdb"
-	"github.com/khasanovbi/banksdb/paymentsystem"
+	"github.com/khasanovbi/banksdb/v2"
+	"github.com/khasanovbi/banksdb/v2/paymentsystem"
 )
 
 func main() {

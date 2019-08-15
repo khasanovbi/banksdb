@@ -3,7 +3,7 @@ package paymentsystem_test
 import (
 	"testing"
 
-	"github.com/khasanovbi/banksdb/paymentsystem"
+	"github.com/khasanovbi/banksdb/v2/paymentsystem"
 	"github.com/stretchr/testify/require"
 )
 

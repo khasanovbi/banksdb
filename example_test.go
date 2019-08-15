@@ -3,7 +3,7 @@ package banksdb_test
 import (
 	"fmt"
 
-	"github.com/khasanovbi/banksdb"
+	"github.com/khasanovbi/banksdb/v2"
 )
 
 func ExampleFindBank() {

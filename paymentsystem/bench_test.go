@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/khasanovbi/banksdb/paymentsystem"
+	"github.com/khasanovbi/banksdb/v2/paymentsystem"
 )
 
 type singleRecordRePaymentSystemDB struct {

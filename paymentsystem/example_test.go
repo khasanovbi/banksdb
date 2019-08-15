@@ -3,7 +3,7 @@ package paymentsystem_test
 import (
 	"fmt"
 
-	"github.com/khasanovbi/banksdb/paymentsystem"
+	"github.com/khasanovbi/banksdb/v2/paymentsystem"
 )
 
 func ExampleFindPaymentSystem() {

@@ -1,4 +1,4 @@
-module github.com/khasanovbi/banksdb
+module github.com/khasanovbi/banksdb/v2
 
 require (
 	github.com/armon/go-radix v1.0.0
