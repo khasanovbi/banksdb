@@ -27,7 +27,7 @@ var (
 		`/*
 * CODE GENERATED AUTOMATICALLY WITH github.com/khasanovbi/banksdb/internal/gen
 * THIS FILE MUST NOT BE EDITED BY HAND
-*/
+ */
 
 package {{.Package}}
 
@@ -44,7 +44,7 @@ const (
 		`/*
 * CODE GENERATED AUTOMATICALLY WITH github.com/khasanovbi/banksdb/internal/gen
 * THIS FILE MUST NOT BE EDITED BY HAND
-*/
+ */
 
 package {{.Package}}
 
@@ -57,7 +57,9 @@ var banksByCountry = map[Country][]Bank{
 			EngTitle:   "{{$bank.EngTitle}}",
 			URL:        "{{$bank.URL}}",
 			Color:      "{{$bank.Color}}",
-			Prefixes:   []int{{"{"}}{{range $i, $prefix := $bank.Prefixes}}{{if $i}}, {{end}}{{$prefix}}{{end}}},
+			Prefixes: []int{{"{"}}{{range $i, $prefix := $bank.Prefixes}}
+				{{$prefix}},{{end}}
+			},
 		},
 {{end}}	},
 {{end}}}

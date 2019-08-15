@@ -3,4 +3,6 @@ linters:
   disable:
     - gochecknoglobals
     - gochecknoinits
-    - lll
+
+issues:
+  exclude-use-default: false
