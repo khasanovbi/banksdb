@@ -12,14 +12,6 @@ func ExampleFindBank() {
 	fmt.Printf("Bank info: %#v\n", bank)
 }
 
-func ExampleFindPaymentSystem() {
-	creditCard := "5275940000000000"
-	paymentSystem := banksdb.FindPaymentSystem(creditCard)
-	if paymentSystem != nil {
-		fmt.Printf("Payment system: %s\n", *paymentSystem)
-	}
-}
-
 func ExampleBanksDB_findBank() {
 	// Create BanksDB only for Canadian and USA banks.
 	db := banksdb.NewBanksDB(banksdb.CA, banksdb.US)
