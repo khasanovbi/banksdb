@@ -26,12 +26,13 @@ import (
 	"fmt"
 
 	"github.com/khasanovbi/banksdb"
+	"github.com/khasanovbi/banksdb/paymentsystem"
 )
 
 func main() {
 	for _, creditCard := range []string{"5275940000000000", "4111111111111111"} {
 		bank := banksdb.FindBank(creditCard)
-		paymentSystem := banksdb.FindPaymentSystem(creditCard)
+		paymentSystem := paymentsystem.FindPaymentSystem(creditCard)
 		fmt.Printf("CreditCard: %s\n", creditCard)
 		fmt.Printf("Bank info: %#v\n", bank)
 		if paymentSystem != nil {
@@ -47,9 +48,9 @@ Output:
 ```
 CreditCard: 5275940000000000
 Bank info: &banksdb.Bank{Name:"citibank", Country:"ru", LocalTitle:"Ситибанк", EngTitle:"Citibank", URL:"https://www.citibank.ru/", Color:"#0088cf", Prefixes:[]int{419349, 427760, 427761, 520306, 527594}}
-Payment system: mastercard
+Payment system: MasterCard
 
 CreditCard: 4111111111111111
 Bank info: (*banksdb.Bank)(nil)
-Payment system: visa
+Payment system: Visa
 ```
