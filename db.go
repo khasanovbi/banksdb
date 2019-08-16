@@ -14,6 +14,9 @@ type banksDBImpl struct {
 func (b *banksDBImpl) FindBank(creditCard string) *Bank {
 	// NOTE: Start in reverse order to make less lookups
 	for _, prefixLength := range []int{6, 5} {
+		if len(creditCard) < prefixLength {
+			continue
+		}
 		prefix, err := strconv.Atoi(creditCard[:prefixLength])
 		if err != nil {
 			return nil
