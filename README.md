@@ -4,6 +4,7 @@
 [![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/khasanovbi/banksdb)
 [![Go Report Card](https://goreportcard.com/badge/github.com/khasanovbi/banksdb?style=flat-square)](https://goreportcard.com/report/github.com/khasanovbi/banksdb)
 [![Release](https://img.shields.io/github/release/khasanovbi/banksdb.svg?style=flat-square)](https://github.com/khasanovbi/banksdb/releases/latest)
+[![codecov](https://codecov.io/gh/khasanovbi/banksdb/branch/master/graph/badge.svg)](https://codecov.io/gh/khasanovbi/banksdb)
 
 Community driven database to get bank info (name, brand, color, etc.) by bankcard prefix (BIN)
 
