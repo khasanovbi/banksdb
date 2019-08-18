@@ -1,6 +1,7 @@
 package paymentsystem
 
 import (
+	"errors"
 	"strconv"
 
 	"github.com/armon/go-radix"
@@ -42,13 +43,15 @@ func getPaymentSystemFromValue(v interface{}, creditCardLength int, ignoreLength
 	return nil
 }
 
-type paymentSystemDB struct {
+var errNonUniquePrefix = errors.New("non unique prefix")
+
+type radixDB struct {
 	tree *radix.Tree
 }
 
-func (p *paymentSystemDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (paymentSystem *PaymentSystem) {
+func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (paymentSystem *PaymentSystem) {
 	creditCardLength := len(creditCard)
-	prefix, value, ok := p.tree.LongestPrefix(creditCard)
+	prefix, value, ok := r.tree.LongestPrefix(creditCard)
 	if !ok {
 		return nil
 	}
@@ -57,22 +60,25 @@ func (p *paymentSystemDB) findPaymentSystem(creditCard string, ignoreLengthCheck
 	if paymentSystem != nil {
 		return paymentSystem
 	}
-	p.tree.WalkPath(prefix, func(s string, v interface{}) bool {
-		paymentSystem = getPaymentSystemFromValue(v, creditCardLength, ignoreLengthCheck)
+	r.tree.WalkPath(prefix, func(s string, v interface{}) bool {
+		currentPaymentSystem := getPaymentSystemFromValue(v, creditCardLength, ignoreLengthCheck)
+		if currentPaymentSystem != nil {
+			paymentSystem = currentPaymentSystem
+		}
 		return false
 	})
 	return
 }
 
-func (p *paymentSystemDB) FindPaymentSystem(creditCard string) (paymentSystem *PaymentSystem) {
-	return p.findPaymentSystem(creditCard, false)
+func (r *radixDB) FindPaymentSystem(creditCard string) (paymentSystem *PaymentSystem) {
+	return r.findPaymentSystem(creditCard, false)
 }
 
-func (p *paymentSystemDB) FindPaymentSystemByPrefix(creditCardPrefix string) (paymentSystem *PaymentSystem) {
-	return p.findPaymentSystem(creditCardPrefix, true)
+func (r *radixDB) FindPaymentSystemByPrefix(creditCardPrefix string) (paymentSystem *PaymentSystem) {
+	return r.findPaymentSystem(creditCardPrefix, true)
 }
 
-func (p *paymentSystemDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSystemInfo) error {
+func (r *radixDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSystemInfo) error {
 	for paymentSystem, paymentSystemParams := range rawPaymentSystems {
 		for i := range paymentSystemParams {
 			paymentSystemParam := paymentSystemParams[i]
@@ -87,14 +93,15 @@ func (p *paymentSystemDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paym
 			}
 			for _, prefix := range prefixes {
 				newValue := &radixValue{paymentSystem: paymentSystem, lengthChecker: paymentSystemParam.lengthChecker}
-				oldValue, isUpdated := p.tree.Insert(strconv.Itoa(prefix), newValue)
+				oldValue, isUpdated := r.tree.Insert(strconv.Itoa(prefix), newValue)
 				if isUpdated {
 					oldPaymentSystem := oldValue.(*radixValue).paymentSystem
 					return xerrors.Errorf(
-						"unexpected update: prefix=%d, old=%s, new=%s",
+						"prefix=%d, old=%s, new=%s: %w",
 						prefix,
 						oldPaymentSystem,
 						newValue.paymentSystem,
+						errNonUniquePrefix,
 					)
 				}
 			}
@@ -103,9 +110,13 @@ func (p *paymentSystemDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paym
 	return nil
 }
 
+func newRadixDB() *radixDB {
+	return &radixDB{tree: radix.New()}
+}
+
 // NewDB creates instance of payment system DB.
 func NewDB() DB {
-	db := &paymentSystemDB{tree: radix.New()}
+	db := newRadixDB()
 	err := db.InitFromMap(rawPaymentSystems)
 	if err != nil {
 		panic(err)
