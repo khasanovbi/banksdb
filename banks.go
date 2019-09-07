@@ -1945,6 +1945,21 @@ var banksByCountry = map[Country][]Bank{
 			},
 		},
 	},
+	NL: {
+		{
+			Name:       "bunq",
+			Country:    "nl",
+			LocalTitle: "bunq",
+			EngTitle:   "bunq",
+			URL:        "https://bunq.com/",
+			Color:      "#ffffff",
+			Prefixes: []int{
+				522319,
+				537465,
+				671160,
+			},
+		},
+	},
 	NZ: {
 		{
 			Name:       "bnz",

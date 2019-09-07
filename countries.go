@@ -27,6 +27,7 @@ const (
 	IR Country = "ir"
 	KG Country = "kg"
 	KZ Country = "kz"
+	NL Country = "nl"
 	NZ Country = "nz"
 	PL Country = "pl"
 	PT Country = "pt"
