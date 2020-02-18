@@ -1588,6 +1588,17 @@ var banksByCountry = map[Country][]Bank{
 			},
 		},
 		{
+			Name:       "ayandeh",
+			Country:    "ir",
+			LocalTitle: "بانک آینده",
+			EngTitle:   "Ayandeh Bank",
+			URL:        "https://www.ba24.ir/",
+			Color:      "#e1b466",
+			Prefixes: []int{
+				636214,
+			},
+		},
+		{
 			Name:       "central",
 			Country:    "ir",
 			LocalTitle: "بانک مرکزی جمهوری اسلامی ایران",
@@ -1619,7 +1630,6 @@ var banksByCountry = map[Country][]Bank{
 			Prefixes: []int{
 				627412,
 				627884,
-				639194,
 			},
 		},
 		{
@@ -1703,6 +1713,17 @@ var banksByCountry = map[Country][]Bank{
 			},
 		},
 		{
+			Name:       "kosar",
+			Country:    "ir",
+			LocalTitle: "مؤسسه اعتباری کوثر",
+			EngTitle:   "Kosar Financial and Credit Institution",
+			URL:        "http://www.kosarfci.ir/",
+			Color:      "#802b68",
+			Prefixes: []int{
+				505801,
+			},
+		},
+		{
 			Name:       "maskan",
 			Country:    "ir",
 			LocalTitle: "بانک مسکن",
@@ -1711,6 +1732,28 @@ var banksByCountry = map[Country][]Bank{
 			Color:      "#e84b0a",
 			Prefixes: []int{
 				628023,
+			},
+		},
+		{
+			Name:       "mehreghtesad",
+			Country:    "ir",
+			LocalTitle: "بانک مهر اقتصاد",
+			EngTitle:   "Mehr Eqtesad Bank",
+			URL:        "http://bank-maskan.ir/",
+			Color:      "#00a651",
+			Prefixes: []int{
+				639370,
+			},
+		},
+		{
+			Name:       "melal",
+			Country:    "ir",
+			LocalTitle: "مؤسسه اعتباری ملل",
+			EngTitle:   "Melal Credit Institution",
+			URL:        "https://bank-melal.ir/",
+			Color:      "#f9bb08",
+			Prefixes: []int{
+				606256,
 			},
 		},
 		{
@@ -1734,6 +1777,30 @@ var banksByCountry = map[Country][]Bank{
 			Color:      "#dc3c00",
 			Prefixes: []int{
 				603799,
+				589905,
+				170019,
+			},
+		},
+		{
+			Name:       "middleeast",
+			Country:    "ir",
+			LocalTitle: "بانک خاورمیانه",
+			EngTitle:   "Middle East Bank",
+			URL:        "https://www.middleeastbank.ir/",
+			Color:      "#f39200",
+			Prefixes: []int{
+				505809,
+			},
+		},
+		{
+			Name:       "noor",
+			Country:    "ir",
+			LocalTitle: "مؤسسه اعتباری نور",
+			EngTitle:   "Noor Credit Institution",
+			URL:        "https://noorbank.ir/",
+			Color:      "#0bbbb9",
+			Prefixes: []int{
+				507677,
 			},
 		},
 		{
@@ -1745,6 +1812,7 @@ var banksByCountry = map[Country][]Bank{
 			Color:      "#ffc41e",
 			Prefixes: []int{
 				622106,
+				639194,
 			},
 		},
 		{
@@ -1790,6 +1858,17 @@ var banksByCountry = map[Country][]Bank{
 			Color:      "#004b84",
 			Prefixes: []int{
 				589463,
+			},
+		},
+		{
+			Name:       "resalat",
+			Country:    "ir",
+			LocalTitle: "بانک قرض الحسنه رسالت",
+			EngTitle:   "Resalat Gharzolhasaneh Bank",
+			URL:        "https://www.rqbank.ir/",
+			Color:      "#0098a7",
+			Prefixes: []int{
+				504172,
 			},
 		},
 		{
@@ -1869,6 +1948,17 @@ var banksByCountry = map[Country][]Bank{
 			Prefixes: []int{
 				585983,
 				627353,
+			},
+		},
+		{
+			Name:       "tosee",
+			Country:    "ir",
+			LocalTitle: "مؤسسه اعتباری توسعه",
+			EngTitle:   "Tosee Credit Institution",
+			URL:        "http://www.cid.ir/",
+			Color:      "#a41b1b",
+			Prefixes: []int{
+				628157,
 			},
 		},
 		{
@@ -2350,6 +2440,7 @@ var banksByCountry = map[Country][]Bank{
 				427667,
 				427668,
 				427669,
+				427670,
 				427672,
 				427680,
 				427683,
