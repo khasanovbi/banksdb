@@ -40,6 +40,7 @@ func getPaymentSystemFromValue(v interface{}, creditCardLength int, ignoreLength
 	if ignoreLengthCheck || value.lengthChecker.CheckLength(creditCardLength) {
 		return &value.paymentSystem
 	}
+
 	return nil
 }
 
@@ -52,6 +53,7 @@ type radixDB struct {
 func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (paymentSystem *PaymentSystem) {
 	creditCardLength := len(creditCard)
 	prefix, value, ok := r.tree.LongestPrefix(creditCard)
+
 	if !ok {
 		return nil
 	}
@@ -60,6 +62,7 @@ func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (
 	if paymentSystem != nil {
 		return paymentSystem
 	}
+
 	r.tree.WalkPath(prefix, func(s string, v interface{}) bool {
 		currentPaymentSystem := getPaymentSystemFromValue(v, creditCardLength, ignoreLengthCheck)
 		if currentPaymentSystem != nil {
@@ -67,6 +70,7 @@ func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (
 		}
 		return false
 	})
+
 	return
 }
 
@@ -84,18 +88,23 @@ func (r *radixDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSyste
 			paymentSystemParam := paymentSystemParams[i]
 			prefixes := make([]int, 0, len(paymentSystemParam.prefixRanges)+len(paymentSystemParam.prefixes))
 			prefixes = append(prefixes, paymentSystemParam.prefixes...)
+
 			for _, prefixRange := range paymentSystemParam.prefixRanges {
 				rangePrefixes, err := splitPrefixRange(prefixRange)
 				if err != nil {
 					return xerrors.Errorf("prefix range split error: %w", err)
 				}
+
 				prefixes = append(prefixes, rangePrefixes...)
 			}
+
 			for _, prefix := range prefixes {
 				newValue := &radixValue{paymentSystem: paymentSystem, lengthChecker: paymentSystemParam.lengthChecker}
 				oldValue, isUpdated := r.tree.Insert(strconv.Itoa(prefix), newValue)
+
 				if isUpdated {
 					oldPaymentSystem := oldValue.(*radixValue).paymentSystem
+
 					return xerrors.Errorf(
 						"prefix=%d, old=%s, new=%s: %w",
 						prefix,
@@ -107,6 +116,7 @@ func (r *radixDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSyste
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -118,9 +128,11 @@ func newRadixDB() *radixDB {
 func NewDB() DB {
 	db := newRadixDB()
 	err := db.InitFromMap(rawPaymentSystems)
+
 	if err != nil {
 		panic(err)
 	}
+
 	return db
 }
 

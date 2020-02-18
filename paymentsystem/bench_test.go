@@ -19,6 +19,7 @@ func (s *singleRecordRePaymentSystemDB) FindPaymentSystem(
 	if s.psFullLengthRe.MatchString(creditCard) {
 		return s.ps
 	}
+
 	return nil
 }
 
@@ -28,11 +29,13 @@ func (s *singleRecordRePaymentSystemDB) FindPaymentSystemByPrefix(
 	if s.psPrefixRe.MatchString(creditCardPrefix) {
 		return s.ps
 	}
+
 	return nil
 }
 
 func newPaymentSystemDBRe() paymentsystem.DB {
 	ps := paymentsystem.UnionPay
+
 	return &singleRecordRePaymentSystemDB{
 		psFullLengthRe: regexp.MustCompile(`^622126\d{10}$`),
 		psPrefixRe:     regexp.MustCompile(`^622126\d*$`),
@@ -51,8 +54,10 @@ func BenchmarkFindPaymentSystem(b *testing.B) {
 		"Re":    paymentSystemDBRe,
 	}
 	creditCard := "6221269639999729"
+
 	for name, paymentSystemDB := range paymentSystemDBs {
 		paymentSystemDB := paymentSystemDB
+
 		b.Run(name, func(b *testing.B) {
 			b.ReportAllocs()
 			for i := 0; i < b.N; i++ {
@@ -73,8 +78,10 @@ func BenchmarkFindPaymentSystemByPrefix(b *testing.B) {
 		"Re":    paymentSystemDBRe,
 	}
 	creditCard := "6221269639999729"
+
 	for name, paymentSystemDB := range paymentSystemDBs {
 		paymentSystemDB := paymentSystemDB
+
 		b.Run(name, func(b *testing.B) {
 			b.ReportAllocs()
 			for i := 0; i < b.N; i++ {

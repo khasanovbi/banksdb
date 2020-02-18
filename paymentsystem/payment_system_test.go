@@ -1,3 +1,4 @@
+//nolint: gomnd
 package paymentsystem
 
 import (
@@ -33,6 +34,7 @@ func TestFindPaymentSystem(t *testing.T) {
 	for ps, creditCard := range tests {
 		ps := ps
 		creditCard := creditCard
+
 		t.Run(string(ps), func(t *testing.T) {
 			actualPaymentSystem := FindPaymentSystem(creditCard)
 			require.NotNil(t, actualPaymentSystem)
@@ -63,7 +65,9 @@ func (suite *RadixDBTestSuite) TestNotLongestPrefix() {
 			{prefixes: []int{12}, lengthChecker: &exactLengthChecker{Exact: 5}},
 		},
 	})
+
 	suite.Require().NoError(err)
+
 	actualPs := db.FindPaymentSystem(creditCard)
 	suite.Require().NotNil(actualPs)
 	suite.Require().Equal(EqualByLengthAndPrefixPs, *actualPs)

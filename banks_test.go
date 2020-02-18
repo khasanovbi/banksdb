@@ -18,12 +18,15 @@ func TestNotEmptyBanksInCountry(t *testing.T) {
 
 func TestUniquePrefixesInBanks(t *testing.T) {
 	t.Skip() // Now this test failed because there is some nonunique prefixes in db.
+
 	seen := make(map[int]struct{})
+
 	for _, banks := range banksByCountry {
 		for _, bank := range banks {
 			for _, prefix := range bank.Prefixes {
 				_, isSeenBefore := seen[prefix]
 				require.False(t, isSeenBefore, "prefix %d seen before", prefix)
+
 				seen[prefix] = struct{}{}
 			}
 		}

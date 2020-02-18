@@ -9,6 +9,7 @@ import (
 func ExampleFindPaymentSystem() {
 	creditCard := "5275940000000000"
 	paymentSystem := paymentsystem.FindPaymentSystem(creditCard)
+
 	if paymentSystem != nil {
 		fmt.Printf("Payment system: %s\n", *paymentSystem)
 	}
@@ -17,6 +18,7 @@ func ExampleFindPaymentSystem() {
 func ExampleFindPaymentSystemByPrefix() {
 	creditCard := "527594"
 	paymentSystem := paymentsystem.FindPaymentSystemByPrefix(creditCard)
+
 	if paymentSystem != nil {
 		fmt.Printf("Payment system: %s\n", *paymentSystem)
 	}

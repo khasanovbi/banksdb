@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+//nolint: gomnd
 func TestSplitPrefixRange(t *testing.T) {
 	tests := map[string]struct {
 		prefixRange      prefixRange
@@ -27,6 +28,7 @@ func TestSplitPrefixRange(t *testing.T) {
 
 	for testName, testParams := range tests {
 		testParams := testParams
+
 		t.Run(testName, func(t *testing.T) {
 			result, err := splitPrefixRange(testParams.prefixRange)
 			require.NoError(t, err)

@@ -22,7 +22,9 @@ func (suite *ExactLengthCheckerTestSuite) TestValidLength() {
 }
 
 func (suite *ExactLengthCheckerTestSuite) TestInvalidLength() {
-	suite.Require().False(suite.lengthChecker.CheckLength(suite.length + 1))
+	const oversizeLengthAddition = 1
+
+	suite.Require().False(suite.lengthChecker.CheckLength(suite.length + oversizeLengthAddition))
 }
 
 func TestExactLengthCheckerTestSuite(t *testing.T) {

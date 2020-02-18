@@ -53,7 +53,7 @@ var banksByCountry = map[Country][]Bank{
 {{range $bank := $countryBanks.Banks}}		{
 			Name:       "{{$bank.Name}}",
 			Country:    "{{$bank.Country}}",
-			LocalTitle: "{{$bank.LocalTitle}}",
+			LocalTitle: {{printf "%q" $bank.LocalTitle}},
 			EngTitle:   "{{$bank.EngTitle}}",
 			URL:        "{{$bank.URL}}",
 			Color:      "{{$bank.Color}}",
@@ -74,9 +74,11 @@ func getPackageName(outputPath string) string {
 func GenerateCountriesFile(outputPath string, countries []string) {
 	log.Printf("generate countries file: path='%s'", outputPath)
 	outputFile, err := os.Create(outputPath)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	err = countriesTpl.Execute(
 		outputFile,
 		countriesFileParams{
@@ -84,9 +86,11 @@ func GenerateCountriesFile(outputPath string, countries []string) {
 			Countries: countries,
 		},
 	)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	log.Printf("file generated")
 }
 
@@ -94,9 +98,11 @@ func GenerateCountriesFile(outputPath string, countries []string) {
 func GenerateBanksFile(outputPath string, countryBanksSlice []CountryBanks) {
 	log.Printf("generate banks file: path='%s'", outputPath)
 	outputFile, err := os.Create(outputPath)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	err = banksTpl.Execute(
 		outputFile,
 		banksFileParams{
@@ -104,8 +110,10 @@ func GenerateBanksFile(outputPath string, countryBanksSlice []CountryBanks) {
 			CountryBanksSlice: countryBanksSlice,
 		},
 	)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	log.Printf("file generated")
 }

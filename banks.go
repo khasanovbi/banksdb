@@ -1841,7 +1841,7 @@ var banksByCountry = map[Country][]Bank{
 		{
 			Name:       "qarzolqasanehmehriran",
 			Country:    "ir",
-			LocalTitle: "بانک قرض‌الحسنه مهر ایرانیان",
+			LocalTitle: "بانک قرض\u200cالحسنه مهر ایرانیان",
 			EngTitle:   "Qarzol-Hasaneh Mehr Iran Bank",
 			URL:        "http://www.qmb.ir/",
 			Color:      "#009738",

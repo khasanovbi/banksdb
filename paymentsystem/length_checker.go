@@ -29,5 +29,6 @@ func (o oneOfLengthChecker) CheckLength(length int) bool {
 			return true
 		}
 	}
+
 	return false
 }

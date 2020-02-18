@@ -17,14 +17,18 @@ func (b *banksDBImpl) FindBank(creditCard string) *Bank {
 		if len(creditCard) < prefixLength {
 			continue
 		}
+
 		prefix, err := strconv.Atoi(creditCard[:prefixLength])
+
 		if err != nil {
 			return nil
 		}
+
 		if bank, ok := b.prefixToBank[prefix]; ok {
 			return bank
 		}
 	}
+
 	return nil
 }
 
@@ -42,9 +46,11 @@ func NewBanksDB(countries ...Country) BanksDB {
 	banksDB := &banksDBImpl{
 		prefixToBank: make(map[int]*Bank),
 	}
+
 	for _, country := range countries {
 		banks := banksByCountry[country]
 		banksDB.addBanksToDB(banks)
 	}
+
 	return banksDB
 }

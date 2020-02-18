@@ -14,6 +14,7 @@ func findCommonPrefixLength(first string, second string) int {
 			return commonPrefixLength
 		}
 	}
+
 	return len(first)
 }
 
@@ -23,6 +24,7 @@ func isOnlyChar(str string, char uint8) bool {
 			return false
 		}
 	}
+
 	return true
 }
 
@@ -39,6 +41,7 @@ func appendChars(str string, char uint8, totalSize int) string {
 	if count > 0 {
 		str += strings.Repeat(string(char), count)
 	}
+
 	return str
 }
 
@@ -66,11 +69,13 @@ func splitPrefixRangeStr(fromStr string, toStr string) (prefixes []string) {
 
 	if len(fromStr) > 1 && !isOnlyZeros(fromStr[1:]) {
 		startChar++
+
 		prefixes = append(prefixes, splitPrefixRangeStr(fromStr, appendNines(fromStr[:1], len(fromStr)))...)
 	}
 
 	if len(toStr) > 1 && !isOnlyNines(toStr[1:]) {
 		endChar--
+
 		prefixes = append(prefixes, splitPrefixRangeStr(appendZeros(toStr[:1], len(toStr)), toStr)...)
 	}
 
@@ -85,12 +90,14 @@ func splitPrefixRangeStr(fromStr string, toStr string) (prefixes []string) {
 	for i := range prefixes {
 		prefixes[i] = commonPrefix + prefixes[i]
 	}
+
 	return prefixes
 }
 
 func splitPrefixRange(prefixRange prefixRange) ([]int, error) {
 	fromStr := strconv.Itoa(prefixRange.from)
 	toStr := strconv.Itoa(prefixRange.to)
+
 	if len(fromStr) != len(toStr) {
 		return nil, xerrors.Errorf("different prefix range lengths, from='%s', to='%s'", fromStr, toStr)
 	}
@@ -98,13 +105,16 @@ func splitPrefixRange(prefixRange prefixRange) ([]int, error) {
 	strPrefixes := splitPrefixRangeStr(fromStr, toStr)
 
 	result := make([]int, 0, len(strPrefixes))
+
 	for _, strPrefix := range strPrefixes {
 		prefix, err := strconv.Atoi(strPrefix)
 		// Shouldn't be never not nil.
 		if err != nil {
 			return nil, xerrors.Errorf("prefix to int convert error: %w", err)
 		}
+
 		result = append(result, prefix)
 	}
+
 	return result, nil
 }
