@@ -28,8 +28,8 @@ const (
 // https://www.barclaycard.co.uk/business/files/BIN-Rules-UK.pdf
 //nolint: gomnd
 var rawPaymentSystems = map[PaymentSystem][]paymentSystemInfo{
-	AmericanExpress: {{prefixes: []int{34, 37}, lengthChecker: &exactLengthChecker{15}}},
-	Dankort:         {{prefixes: []int{5019, 4571}, lengthChecker: &exactLengthChecker{16}}},
+	AmericanExpress: {{prefixes: []int{34, 37}, lengthChecker: &exactLengthChecker{Exact: 15}}},
+	Dankort:         {{prefixes: []int{5019, 4571}, lengthChecker: &exactLengthChecker{Exact: 16}}},
 	DinersClubInternational: {
 		{prefixes: []int{36}, lengthChecker: &rangeLengthChecker{From: 14, To: 19}},
 		{
@@ -55,7 +55,7 @@ var rawPaymentSystems = map[PaymentSystem][]paymentSystemInfo{
 		},
 	},
 	InterPayment: {{prefixes: []int{636}, lengthChecker: &rangeLengthChecker{From: 16, To: 19}}},
-	InstaPayment: {{prefixRanges: []prefixRange{{from: 637, to: 639}}, lengthChecker: &exactLengthChecker{16}}},
+	InstaPayment: {{prefixRanges: []prefixRange{{from: 637, to: 639}}, lengthChecker: &exactLengthChecker{Exact: 16}}},
 	JCB: {
 		{
 			prefixRanges: []prefixRange{
@@ -69,7 +69,7 @@ var rawPaymentSystems = map[PaymentSystem][]paymentSystemInfo{
 			lengthChecker: &rangeLengthChecker{From: 16, To: 19},
 		},
 	},
-	LankaPay: {{prefixes: []int{357111}, lengthChecker: &exactLengthChecker{16}}},
+	LankaPay: {{prefixes: []int{357111}, lengthChecker: &exactLengthChecker{Exact: 16}}},
 	Maestro: {
 		{
 			prefixes:      []int{50},
@@ -78,21 +78,24 @@ var rawPaymentSystems = map[PaymentSystem][]paymentSystemInfo{
 		},
 	},
 	MasterCard: {
-		{prefixRanges: []prefixRange{{from: 2221, to: 2720}, {from: 51, to: 55}}, lengthChecker: &exactLengthChecker{16}},
+		{
+			prefixRanges:  []prefixRange{{from: 2221, to: 2720}, {from: 51, to: 55}},
+			lengthChecker: &exactLengthChecker{Exact: 16},
+		},
 	},
-	Mir: {{prefixRanges: []prefixRange{{from: 2200, to: 2204}}, lengthChecker: &exactLengthChecker{16}}},
+	Mir: {{prefixRanges: []prefixRange{{from: 2200, to: 2204}}, lengthChecker: &exactLengthChecker{Exact: 16}}},
 	NPSPridnestrovie: {
-		{prefixRanges: []prefixRange{{from: 6054740, to: 6054744}}, lengthChecker: &exactLengthChecker{16}},
+		{prefixRanges: []prefixRange{{from: 6054740, to: 6054744}}, lengthChecker: &exactLengthChecker{Exact: 16}},
 	},
 	RuPay: {
 		{
 			prefixes:      []int{6521, 6522}, // NOTE: Remove 60, to prefer maestro cards
-			lengthChecker: &exactLengthChecker{16},
+			lengthChecker: &exactLengthChecker{Exact: 16},
 		},
 	},
-	Troy:   {{prefixRanges: []prefixRange{{from: 979200, to: 979289}}, lengthChecker: &exactLengthChecker{16}}},
-	TUnion: {{prefixes: []int{31}, lengthChecker: &exactLengthChecker{19}}},
-	UATP:   {{prefixes: []int{1}, lengthChecker: &exactLengthChecker{15}}},
+	Troy:   {{prefixRanges: []prefixRange{{from: 979200, to: 979289}}, lengthChecker: &exactLengthChecker{Exact: 16}}},
+	TUnion: {{prefixes: []int{31}, lengthChecker: &exactLengthChecker{Exact: 19}}},
+	UATP:   {{prefixes: []int{1}, lengthChecker: &exactLengthChecker{Exact: 15}}},
 	UnionPay: {
 		{
 			prefixes: []int{810},
@@ -111,5 +114,5 @@ var rawPaymentSystems = map[PaymentSystem][]paymentSystemInfo{
 			lengthChecker: &oneOfLengthChecker{16, 19},
 		},
 	},
-	Visa: {{prefixes: []int{4}, lengthChecker: &exactLengthChecker{16}}},
+	Visa: {{prefixes: []int{4}, lengthChecker: &exactLengthChecker{Exact: 16}}},
 }

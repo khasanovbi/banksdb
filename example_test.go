@@ -1,3 +1,4 @@
+//nolint:forbidigo
 package banksdb_test
 
 import (

@@ -68,6 +68,7 @@ func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (
 		if currentPaymentSystem != nil {
 			paymentSystem = currentPaymentSystem
 		}
+
 		return false
 	})
 
@@ -127,9 +128,8 @@ func newRadixDB() *radixDB {
 // NewDB creates instance of payment system DB.
 func NewDB() DB {
 	db := newRadixDB()
-	err := db.InitFromMap(rawPaymentSystems)
 
-	if err != nil {
+	if err := db.InitFromMap(rawPaymentSystems); err != nil {
 		panic(err)
 	}
 

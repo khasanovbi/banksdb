@@ -8,9 +8,7 @@ import (
 	"sort"
 )
 
-var (
-	baseDir = "../.."
-)
+var baseDir = "../.."
 
 func init() {
 	flag.StringVar(&baseDir, "base-dir", "", "repo base directory")
@@ -47,13 +45,11 @@ func main() {
 	)
 
 	countriesPath, err := filepath.Abs(path.Join(baseDir, "countries.go"))
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	banksPath, err := filepath.Abs(path.Join(baseDir, "banks.go"))
-
 	if err != nil {
 		log.Fatal(err)
 	}

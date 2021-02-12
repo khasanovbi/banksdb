@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"path/filepath"
@@ -39,20 +40,20 @@ type CountryBanks struct {
 func unmarshalBankFromFile(fs billy.Filesystem, path string) (*Bank, error) {
 	jsonFile, err := fs.Open(path)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("can't open banks file: %w", err)
 	}
 	defer jsonFile.Close() // nolint: errcheck
-	byteValue, err := ioutil.ReadAll(jsonFile)
 
+	byteValue, err := ioutil.ReadAll(jsonFile)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("can't decode banks: %w", err)
 	}
 
 	bank := Bank{}
-	err = json.Unmarshal(byteValue, &bank)
 
+	err = json.Unmarshal(byteValue, &bank)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("can't unmarshal banks: %w", err)
 	}
 
 	return &bank, nil
@@ -75,12 +76,13 @@ func readCountryDir(fs billy.Filesystem, path string) []Bank {
 
 		if !strings.HasSuffix(content.Name(), ".json") {
 			log.Printf("skip not json file: path='%s'", contentPath)
+
 			continue
 		}
 
 		log.Printf("handle file: path='%s'", contentPath)
-		bank, err := unmarshalBankFromFile(fs, contentPath)
 
+		bank, err := unmarshalBankFromFile(fs, contentPath)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -97,8 +99,8 @@ func readCountryDir(fs billy.Filesystem, path string) []Bank {
 
 func readBanks(fs billy.Filesystem, path string) []CountryBanks {
 	countryBanksSlice := make([]CountryBanks, 0)
-	contents, err := fs.ReadDir(path)
 
+	contents, err := fs.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -131,10 +133,10 @@ func ParseBanks() []CountryBanks {
 	log.Printf("clone repo: repoURL='%s'", repoURL)
 
 	fs := memfs.New()
-	repository, err := git.Clone(memory.NewStorage(), fs, &git.CloneOptions{
+
+	repository, err := git.Clone(memory.NewStorage(), fs, &git.CloneOptions{ //nolint:exhaustivestruct
 		URL: repoURL,
 	})
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -145,7 +147,6 @@ func ParseBanks() []CountryBanks {
 	}
 
 	commit, err := repository.CommitObject(ref.Hash())
-
 	if err != nil {
 		log.Fatal(err)
 	}
