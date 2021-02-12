@@ -1,11 +1,10 @@
 package paymentsystem
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"strings"
-
-	"golang.org/x/xerrors"
 )
 
 func findCommonPrefixLength(first string, second string) int {
@@ -99,7 +98,7 @@ func splitPrefixRange(prefixRange prefixRange) ([]int, error) {
 	toStr := strconv.Itoa(prefixRange.to)
 
 	if len(fromStr) != len(toStr) {
-		return nil, xerrors.Errorf("different prefix range lengths, from='%s', to='%s'", fromStr, toStr)
+		return nil, fmt.Errorf("different prefix range lengths, from='%s', to='%s'", fromStr, toStr)
 	}
 
 	strPrefixes := splitPrefixRangeStr(fromStr, toStr)
@@ -110,7 +109,7 @@ func splitPrefixRange(prefixRange prefixRange) ([]int, error) {
 		prefix, err := strconv.Atoi(strPrefix)
 		// Shouldn't be never not nil.
 		if err != nil {
-			return nil, xerrors.Errorf("prefix to int convert error: %w", err)
+			return nil, fmt.Errorf("prefix to int convert error: %w", err)
 		}
 
 		result = append(result, prefix)

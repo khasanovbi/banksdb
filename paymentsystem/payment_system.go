@@ -2,10 +2,10 @@ package paymentsystem
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 
 	"github.com/armon/go-radix"
-	"golang.org/x/xerrors"
 )
 
 // PaymentSystem represent system used to settle financial transactions.
@@ -92,7 +92,7 @@ func (r *radixDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSyste
 			for _, prefixRange := range paymentSystemParam.prefixRanges {
 				rangePrefixes, err := splitPrefixRange(prefixRange)
 				if err != nil {
-					return xerrors.Errorf("prefix range split error: %w", err)
+					return fmt.Errorf("prefix range split error: %w", err)
 				}
 
 				prefixes = append(prefixes, rangePrefixes...)
@@ -105,7 +105,7 @@ func (r *radixDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSyste
 				if isUpdated {
 					oldPaymentSystem := oldValue.(*radixValue).paymentSystem
 
-					return xerrors.Errorf(
+					return fmt.Errorf(
 						"prefix=%d, old=%s, new=%s: %w",
 						prefix,
 						oldPaymentSystem,

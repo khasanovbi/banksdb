@@ -2,11 +2,11 @@
 package paymentsystem
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"golang.org/x/xerrors"
 )
 
 func TestFindPaymentSystem(t *testing.T) {
@@ -88,7 +88,7 @@ func (suite *RadixDBTestSuite) TestInitErrorAtSamePrefix() {
 			{prefixes: []int{1}, lengthChecker: &exactLengthChecker{Exact: 5}},
 		},
 	})
-	suite.Require().True(xerrors.Is(err, errNonUniquePrefix))
+	suite.Require().True(errors.Is(err, errNonUniquePrefix))
 }
 
 func TestRadixDBTestSuite(t *testing.T) {
