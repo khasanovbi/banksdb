@@ -24,6 +24,7 @@ const (
 	FR Country = "fr"
 	GB Country = "gb"
 	IE Country = "ie"
+	IN Country = "in"
 	IR Country = "ir"
 	KG Country = "kg"
 	KZ Country = "kz"

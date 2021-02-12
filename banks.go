@@ -1070,6 +1070,7 @@ var banksByCountry = map[Country][]Bank{
 			Color:      "#018fd0",
 			Prefixes: []int{
 				492910,
+				492915,
 			},
 		},
 		{
@@ -1572,6 +1573,46 @@ var banksByCountry = map[Country][]Bank{
 				549897,
 				554545,
 				560390,
+			},
+		},
+	},
+	IN: {
+		{
+			Name:       "hdfc",
+			Country:    "in",
+			LocalTitle: "HDFC",
+			EngTitle:   "HDFC",
+			URL:        "https://www.hdfcbank.com/",
+			Color:      "#004c8f",
+			Prefixes: []int{
+				416021,
+				524254,
+				541919,
+				552260,
+			},
+		},
+		{
+			Name:       "icici",
+			Country:    "in",
+			LocalTitle: "ICICI",
+			EngTitle:   "ICICI",
+			URL:        "https://www.icicibank.com/",
+			Color:      "#c01012",
+			Prefixes: []int{
+				431581,
+				437551,
+				483834,
+			},
+		},
+		{
+			Name:       "sbi",
+			Country:    "in",
+			LocalTitle: "SBI",
+			EngTitle:   "SBI",
+			URL:        "https://www.onlinesbi.com/",
+			Color:      "#292075",
+			Prefixes: []int{
+				478679,
 			},
 		},
 	},
