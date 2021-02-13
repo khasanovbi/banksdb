@@ -1,4 +1,4 @@
-//nolint: gomnd
+//nolint:testpackage
 package paymentsystem
 
 import (

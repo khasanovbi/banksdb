@@ -19,7 +19,6 @@ func (b *banksDBImpl) FindBank(creditCard string) *Bank {
 		}
 
 		prefix, err := strconv.Atoi(creditCard[:prefixLength])
-
 		if err != nil {
 			return nil
 		}

@@ -1,3 +1,4 @@
+//nolint:testpackage
 package paymentsystem
 
 import (
@@ -6,7 +7,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-//nolint: gomnd
 func TestSplitPrefixRange(t *testing.T) {
 	tests := map[string]struct {
 		prefixRange      prefixRange

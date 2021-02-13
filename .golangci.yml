@@ -3,6 +3,7 @@ linters:
   disable:
     - gochecknoglobals
     - gochecknoinits
+    - paralleltest
 
 issues:
   exclude-use-default: false

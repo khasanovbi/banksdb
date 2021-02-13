@@ -1,11 +1,14 @@
 package paymentsystem
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"strconv"
 	"strings"
 )
+
+var errDifferentPrefixRangeLengths = errors.New("different prefix range lengths")
 
 func findCommonPrefixLength(first string, second string) int {
 	for commonPrefixLength := 0; commonPrefixLength < len(first); commonPrefixLength++ {
@@ -36,8 +39,7 @@ func isOnlyNines(str string) bool {
 }
 
 func appendChars(str string, char uint8, totalSize int) string {
-	count := totalSize - len(str)
-	if count > 0 {
+	if count := totalSize - len(str); count > 0 {
 		str += strings.Repeat(string(char), count)
 	}
 
@@ -98,7 +100,7 @@ func splitPrefixRange(prefixRange prefixRange) ([]int, error) {
 	toStr := strconv.Itoa(prefixRange.to)
 
 	if len(fromStr) != len(toStr) {
-		return nil, fmt.Errorf("different prefix range lengths, from='%s', to='%s'", fromStr, toStr)
+		return nil, fmt.Errorf("%w, from='%s', to='%s'", errDifferentPrefixRangeLengths, fromStr, toStr)
 	}
 
 	strPrefixes := splitPrefixRangeStr(fromStr, toStr)

@@ -73,8 +73,8 @@ func getPackageName(outputPath string) string {
 // GenerateCountriesFile generate go file with countries.
 func GenerateCountriesFile(outputPath string, countries []string) {
 	log.Printf("generate countries file: path='%s'", outputPath)
-	outputFile, err := os.Create(outputPath)
 
+	outputFile, err := os.Create(outputPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -97,8 +97,8 @@ func GenerateCountriesFile(outputPath string, countries []string) {
 // GenerateBanksFile generate go file with country to bank mapping.
 func GenerateBanksFile(outputPath string, countryBanksSlice []CountryBanks) {
 	log.Printf("generate banks file: path='%s'", outputPath)
-	outputFile, err := os.Create(outputPath)
 
+	outputFile, err := os.Create(outputPath)
 	if err != nil {
 		log.Fatal(err)
 	}

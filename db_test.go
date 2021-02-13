@@ -1,4 +1,4 @@
-package banksdb
+package banksdb //nolint:testpackage
 
 import (
 	"strconv"
