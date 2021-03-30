@@ -49,14 +49,14 @@ func unmarshalBankFromFile(fs billy.Filesystem, path string) (*Bank, error) {
 		return nil, fmt.Errorf("can't decode banks: %w", err)
 	}
 
-	bank := Bank{}
+	bank := new(Bank)
 
-	err = json.Unmarshal(byteValue, &bank)
+	err = json.Unmarshal(byteValue, bank)
 	if err != nil {
 		return nil, fmt.Errorf("can't unmarshal banks: %w", err)
 	}
 
-	return &bank, nil
+	return bank, nil
 }
 
 func readCountryDir(fs billy.Filesystem, path string) []Bank {
