@@ -36,7 +36,11 @@ type DB interface {
 }
 
 func getPaymentSystemFromValue(v interface{}, creditCardLength int, ignoreLengthCheck bool) *PaymentSystem {
-	value := v.(*radixValue)
+	value, ok := v.(*radixValue)
+	if !ok {
+		panic("can't convert to *radixValue")
+	}
+
 	if ignoreLengthCheck || value.lengthChecker.CheckLength(creditCardLength) {
 		return &value.paymentSystem
 	}
