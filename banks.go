@@ -1447,6 +1447,17 @@ var banksByCountry = map[Country][]Bank{
 				476368,
 			},
 		},
+		{
+			Name:       "wise",
+			Country:    "gb",
+			LocalTitle: "Wise",
+			EngTitle:   "Wise",
+			URL:        "https://wise.com/",
+			Color:      "#00b9ff",
+			Prefixes: []int{
+				537434,
+			},
+		},
 	},
 	IE: {
 		{
@@ -2654,12 +2665,12 @@ var banksByCountry = map[Country][]Bank{
 			},
 		},
 		{
-			Name:       "yandex",
+			Name:       "yoomoney",
 			Country:    "ru",
-			LocalTitle: "Яндекс.Деньги",
-			EngTitle:   "Yandex Money",
-			URL:        "https://money.yandex.ru/",
-			Color:      "#000000",
+			LocalTitle: "Ю.Money",
+			EngTitle:   "YooMoney",
+			URL:        "https://yoomoney.ru/",
+			Color:      "#8b3ffd",
 			Prefixes: []int{
 				510621,
 				518901,
@@ -3484,6 +3495,17 @@ var banksByCountry = map[Country][]Bank{
 			Color:      "#275797",
 			Prefixes: []int{
 				438253,
+			},
+		},
+		{
+			Name:       "monobank",
+			Country:    "ua",
+			LocalTitle: "Монобанк",
+			EngTitle:   "Monobank",
+			URL:        "https://monobank.ua/",
+			Color:      "#535353",
+			Prefixes: []int{
+				444111,
 			},
 		},
 		{
