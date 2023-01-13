@@ -26,7 +26,6 @@ const (
 // https://en.wikipedia.org/wiki/Payment_card_number#Issuer_identification_number_(IIN)
 // https://www.discoverglobalnetwork.com/downloads/IPP_VAR_Compliance.pdf
 // https://www.barclaycard.co.uk/business/files/BIN-Rules-UK.pdf
-//nolint: gomnd
 var rawPaymentSystems = map[PaymentSystem][]paymentSystemInfo{
 	AmericanExpress: {{prefixes: []int{34, 37}, lengthChecker: &exactLengthChecker{Exact: 15}}},
 	Dankort:         {{prefixes: []int{5019, 4571}, lengthChecker: &exactLengthChecker{Exact: 16}}},

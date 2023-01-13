@@ -54,7 +54,7 @@ type radixDB struct {
 	tree *radix.Tree
 }
 
-func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (paymentSystem *PaymentSystem) {
+func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) *PaymentSystem {
 	creditCardLength := len(creditCard)
 	prefix, value, ok := r.tree.LongestPrefix(creditCard)
 
@@ -62,7 +62,7 @@ func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (
 		return nil
 	}
 	// Optimization to check the longest prefix first
-	paymentSystem = getPaymentSystemFromValue(value, creditCardLength, ignoreLengthCheck)
+	paymentSystem := getPaymentSystemFromValue(value, creditCardLength, ignoreLengthCheck)
 	if paymentSystem != nil {
 		return paymentSystem
 	}
@@ -76,14 +76,14 @@ func (r *radixDB) findPaymentSystem(creditCard string, ignoreLengthCheck bool) (
 		return false
 	})
 
-	return
+	return paymentSystem
 }
 
-func (r *radixDB) FindPaymentSystem(creditCard string) (paymentSystem *PaymentSystem) {
+func (r *radixDB) FindPaymentSystem(creditCard string) *PaymentSystem {
 	return r.findPaymentSystem(creditCard, false)
 }
 
-func (r *radixDB) FindPaymentSystemByPrefix(creditCardPrefix string) (paymentSystem *PaymentSystem) {
+func (r *radixDB) FindPaymentSystemByPrefix(creditCardPrefix string) *PaymentSystem {
 	return r.findPaymentSystem(creditCardPrefix, true)
 }
 
@@ -108,7 +108,7 @@ func (r *radixDB) InitFromMap(rawPaymentSystems map[PaymentSystem][]paymentSyste
 				oldValue, isUpdated := r.tree.Insert(strconv.Itoa(prefix), newValue)
 
 				if isUpdated {
-					oldPaymentSystem := oldValue.(*radixValue).paymentSystem
+					oldPaymentSystem := oldValue.(*radixValue).paymentSystem //nolint:forcetypeassert
 
 					return fmt.Errorf(
 						"prefix=%d, old=%s, new=%s: %w",
@@ -141,13 +141,13 @@ func NewDB() DB {
 }
 
 // FindPaymentSystem returns payment system of given credit card.
-func FindPaymentSystem(creditCard string) (paymentSystem *PaymentSystem) {
+func FindPaymentSystem(creditCard string) *PaymentSystem {
 	return db.FindPaymentSystem(creditCard)
 }
 
 // FindPaymentSystemByPrefix returns payment system by credit card prefix.
 // Similar to FindPaymentSystem, but finds the payment system with the longest prefix, ignoring the length of the card.
-func FindPaymentSystemByPrefix(creditCard string) (paymentSystem *PaymentSystem) {
+func FindPaymentSystemByPrefix(creditCard string) *PaymentSystem {
 	return db.FindPaymentSystemByPrefix(creditCard)
 }
 

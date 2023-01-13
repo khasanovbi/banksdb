@@ -3,7 +3,14 @@ linters:
   disable:
     - gochecknoglobals
     - gochecknoinits
-    - paralleltest
+    - gomnd
+    - ireturn
+    - testpackage
+    - varnamelen
 
 issues:
   exclude-use-default: false
+  exclude-rules:
+    - path: example_test\.go
+      linters:
+        - lll

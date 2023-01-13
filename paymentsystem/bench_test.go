@@ -15,7 +15,7 @@ type singleRecordRePaymentSystemDB struct {
 
 func (s *singleRecordRePaymentSystemDB) FindPaymentSystem(
 	creditCard string,
-) (paymentSystem *paymentsystem.PaymentSystem) {
+) *paymentsystem.PaymentSystem {
 	if s.psFullLengthRe.MatchString(creditCard) {
 		return s.ps
 	}
@@ -25,7 +25,7 @@ func (s *singleRecordRePaymentSystemDB) FindPaymentSystem(
 
 func (s *singleRecordRePaymentSystemDB) FindPaymentSystemByPrefix(
 	creditCardPrefix string,
-) (paymentSystem *paymentsystem.PaymentSystem) {
+) *paymentsystem.PaymentSystem {
 	if s.psPrefixRe.MatchString(creditCardPrefix) {
 		return s.ps
 	}

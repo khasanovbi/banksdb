@@ -1,4 +1,4 @@
-package banksdb //nolint:testpackage
+package banksdb
 
 import (
 	"testing"
@@ -7,10 +7,14 @@ import (
 )
 
 func TestNotEmptyDB(t *testing.T) {
+	t.Parallel()
+
 	require.NotEmpty(t, banksByCountry)
 }
 
 func TestNotEmptyBanksInCountry(t *testing.T) {
+	t.Parallel()
+
 	for country, banks := range banksByCountry {
 		require.NotEmpty(t, banks, "Country '%s' is empty", country)
 	}
@@ -18,6 +22,8 @@ func TestNotEmptyBanksInCountry(t *testing.T) {
 
 func TestUniquePrefixesInBanks(t *testing.T) {
 	t.Skip() // Now this test failed because there is some nonunique prefixes in db.
+
+	t.Parallel()
 
 	seen := make(map[int]struct{})
 

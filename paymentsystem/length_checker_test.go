@@ -1,4 +1,3 @@
-//nolint:testpackage
 package paymentsystem
 
 import (
@@ -29,6 +28,8 @@ func (suite *ExactLengthCheckerTestSuite) TestInvalidLength() {
 }
 
 func TestExactLengthCheckerTestSuite(t *testing.T) {
+	t.Parallel()
+
 	suite.Run(t, new(ExactLengthCheckerTestSuite))
 }
 
@@ -66,6 +67,8 @@ func (suite *RangeLengthCheckerTestSuite) TestInvalidOut() {
 }
 
 func TestRangeLengthCheckerTestSuite(t *testing.T) {
+	t.Parallel()
+
 	suite.Run(t, new(RangeLengthCheckerTestSuite))
 }
 
@@ -93,5 +96,7 @@ func (suite *OneOfLengthCheckerTestSuite) TestInvalid() {
 }
 
 func TestOneOfLengthCheckerTestSuite(t *testing.T) {
+	t.Parallel()
+
 	suite.Run(t, new(OneOfLengthCheckerTestSuite))
 }
