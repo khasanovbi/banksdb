@@ -2456,8 +2456,8 @@ var banksByCountry = map[Country][]Bank{
 		{
 			Name:       "sberbank",
 			Country:    "ru",
-			LocalTitle: "Сбербанк",
-			EngTitle:   "Sberbank",
+			LocalTitle: "СберБанк",
+			EngTitle:   "SberBank",
 			URL:        "https://www.sberbank.ru",
 			Color:      "#309c0b",
 			Prefixes: []int{
@@ -2564,6 +2564,7 @@ var banksByCountry = map[Country][]Bank{
 			URL:        "https://www.tinkoff.ru/",
 			Color:      "#ffdd2d",
 			Prefixes: []int{
+				220070,
 				437772,
 				437773,
 				521324,

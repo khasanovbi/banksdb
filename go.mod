@@ -1,10 +1,14 @@
 module github.com/khasanovbi/banksdb/v2
 
+go 1.17
+
 require (
 	github.com/armon/go-radix v1.0.0
-	github.com/stretchr/testify v1.3.0
-	gopkg.in/src-d/go-billy.v4 v4.3.2
-	gopkg.in/src-d/go-git.v4 v4.13.1
+	github.com/stretchr/testify v1.8.1
 )
 
-go 1.13
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)

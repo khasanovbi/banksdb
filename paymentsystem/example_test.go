@@ -13,6 +13,9 @@ func ExampleFindPaymentSystem() {
 	if paymentSystem != nil {
 		fmt.Printf("Payment system: %s\n", *paymentSystem)
 	}
+
+	// output:
+	// Payment system: MasterCard
 }
 
 func ExampleFindPaymentSystemByPrefix() {
@@ -22,4 +25,7 @@ func ExampleFindPaymentSystemByPrefix() {
 	if paymentSystem != nil {
 		fmt.Printf("Payment system: %s\n", *paymentSystem)
 	}
+
+	// output:
+	// Payment system: MasterCard
 }

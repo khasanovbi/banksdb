@@ -8,11 +8,15 @@ import (
 )
 
 func TestFindBankEmptyCreditCard(t *testing.T) {
+	t.Parallel()
+
 	bank := banksdb.FindBank("")
 	require.Nil(t, bank)
 }
 
 func TestFindBankInvalidCreditCard(t *testing.T) {
+	t.Parallel()
+
 	bank := banksdb.FindBank("no-digits")
 	require.Nil(t, bank)
 }

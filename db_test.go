@@ -1,4 +1,4 @@
-package banksdb //nolint:testpackage
+package banksdb
 
 import (
 	"strconv"
@@ -43,5 +43,7 @@ func (suite *NewBanksDBTestSuite) TestFindBankInSingleCountry() {
 }
 
 func TestNewBanksDBTestSuite(t *testing.T) {
+	t.Parallel()
+
 	suite.Run(t, new(NewBanksDBTestSuite))
 }

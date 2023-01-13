@@ -1,4 +1,3 @@
-//nolint:testpackage
 package paymentsystem
 
 import (
@@ -10,6 +9,8 @@ import (
 )
 
 func TestFindPaymentSystem(t *testing.T) {
+	t.Parallel()
+
 	tests := map[PaymentSystem]string{
 		AmericanExpress:         "341414688673814",
 		Dankort:                 "5019613744152545",
@@ -36,6 +37,8 @@ func TestFindPaymentSystem(t *testing.T) {
 		creditCard := creditCard
 
 		t.Run(string(ps), func(t *testing.T) {
+			t.Parallel()
+
 			actualPaymentSystem := FindPaymentSystem(creditCard)
 			require.NotNil(t, actualPaymentSystem)
 			require.EqualValues(t, ps, *actualPaymentSystem)
@@ -44,6 +47,8 @@ func TestFindPaymentSystem(t *testing.T) {
 }
 
 func TestEmptyCreditCardFindPaymentSystem(t *testing.T) {
+	t.Parallel()
+
 	actualPaymentSystem := FindPaymentSystem("")
 	require.Nil(t, actualPaymentSystem)
 }
@@ -92,5 +97,7 @@ func (suite *RadixDBTestSuite) TestInitErrorAtSamePrefix() {
 }
 
 func TestRadixDBTestSuite(t *testing.T) {
+	t.Parallel()
+
 	suite.Run(t, new(RadixDBTestSuite))
 }

@@ -1,4 +1,3 @@
-//nolint:testpackage
 package paymentsystem
 
 import (
@@ -8,6 +7,8 @@ import (
 )
 
 func TestSplitPrefixRange(t *testing.T) {
+	t.Parallel()
+
 	tests := map[string]struct {
 		prefixRange      prefixRange
 		expectedPrefixes []int
@@ -30,6 +31,8 @@ func TestSplitPrefixRange(t *testing.T) {
 		testParams := testParams
 
 		t.Run(testName, func(t *testing.T) {
+			t.Parallel()
+
 			result, err := splitPrefixRange(testParams.prefixRange)
 			require.NoError(t, err)
 			require.ElementsMatchf(t, testParams.expectedPrefixes, result, "%v", result)

@@ -54,7 +54,7 @@ func appendZeros(str string, totalSize int) string {
 	return appendChars(str, '0', totalSize)
 }
 
-func splitPrefixRangeStr(fromStr string, toStr string) (prefixes []string) {
+func splitPrefixRangeStr(fromStr string, toStr string) []string {
 	commonPrefixLength := findCommonPrefixLength(fromStr, toStr)
 	commonPrefix := fromStr[:commonPrefixLength]
 
@@ -67,6 +67,8 @@ func splitPrefixRangeStr(fromStr string, toStr string) (prefixes []string) {
 
 	startChar := fromStr[0]
 	endChar := toStr[0]
+
+	var prefixes []string
 
 	if len(fromStr) > 1 && !isOnlyZeros(fromStr[1:]) {
 		startChar++
